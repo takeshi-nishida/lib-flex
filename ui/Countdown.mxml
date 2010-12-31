@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="400" verticalAlign="middle" creationComplete="init(event)">
+	<mx:Label id="timeLabel" text="{'残り ' + StringUtil.intervalToString(timeLeft)}" />
+	<mx:Canvas id="bar" height="90%" width="100%" backgroundColor="0xffffff" dropShadowEnabled="true" />
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.effects.*;
+			import mx.effects.easing.Linear;
+			import util.StringUtil;
+			
+			[Bindable]
+			public var timeLeft:Number;
+			
+			private var wipe:WipeLeft;
+			private var animateLabel:AnimateProperty;
+			
+			public function init(event:Event) : void {
+				wipe = new WipeLeft(bar);
+				wipe.showTarget = false;
+				animateLabel = new AnimateProperty(this);
+				animateLabel.property = "timeLeft";
+				animateLabel.easingFunction = Linear.easeOut;
+			}
+			
+			public function set endTime(t:Number) : void {
+				if(t){
+					timeLeft = t - (new Date()).time;
+	
+					animateLabel.fromValue = timeLeft;
+					animateLabel.toValue = 0;
+	
+					wipe.duration = timeLeft;
+					animateLabel.duration = timeLeft;
+					wipe.stop();
+					animateLabel.stop();
+					wipe.play();				
+					animateLabel.play();
+				}
+			}			
+		]]>
+	</mx:Script>
+</mx:HBox>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ui="ui.*"
+	horizontalScrollPolicy="off" verticalScrollPolicy="off">
+  <mx:Canvas mouseDownEffect="{rotate}" creationCompleteEffect="{rotate}">
+	  <mx:Repeater id="labels">
+	  	<ui:CacheableImage id="images" source="{labels.currentItem}" resize="setTransform(event)" />
+	  </mx:Repeater>
+  </mx:Canvas>
+  
+  <mx:Number id="radius">128</mx:Number>
+  <mx:Number id="innerRadius">36</mx:Number>
+  
+  <mx:Script>
+  	<![CDATA[
+	  	import mx.core.UIComponent;
+  		import mx.effects.easing.Linear;
+	  	
+			private function setTransform(event:Event) : void {
+				var image:UIComponent = event.currentTarget as UIComponent;
+  			var matrix:Matrix = new Matrix();
+  			var s:Number = (radius - innerRadius) / image.height;
+  			matrix.scale(s, s);
+  			matrix.translate(- image.width * s / 2, innerRadius);
+  			matrix.rotate(2 * Math.PI * image.repeaterIndex / images.length);
+  			matrix.translate(width / 2, height / 2);
+  			image.transform.matrix = matrix;			
+			}
+
+			public function set dataProvider(value:Object) : void {
+				labels.dataProvider = value; // for now: how to write by data binding?
+			}
+  	]]>
+  </mx:Script>
+  
+  <mx:Rotate id="rotate" angleFrom="0" angleTo="360" duration="8000" originX="{this.width / 2}" originY="{this.height / 2}" repeatCount="0" easingFunction="{Linear.easeOut}"/>
+  
+</mx:Canvas>

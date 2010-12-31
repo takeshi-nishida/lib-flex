@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="false" version="1">
+  <includeClasses>
+    <classEntry path="com.web2memo.text.Jcode"/>
+    <classEntry path="net.ChatProtocol"/>
+    <classEntry path="net.UTFLineConnection"/>
+    <classEntry path="net.italk.ItalkEvent"/>
+    <classEntry path="net.italk.ItalkProtocol"/>
+    <classEntry path="net.italk.ItalkUser"/>
+    <classEntry path="net.twitter.TwitterStatusFormatter"/>
+    <classEntry path="net.twitter.TwitterStatusRenderer"/>
+    <classEntry path="net.twitter.TwitterStream"/>
+    <classEntry path="net.twitter.TwitterWorker"/>
+    <classEntry path="rr.RoundRobinRenderer"/>
+    <classEntry path="tournament.Player"/>
+    <classEntry path="tournament.Tournament"/>
+    <classEntry path="tournament.TournamentEvent"/>
+    <classEntry path="tournament.TournamentHBar"/>
+    <classEntry path="tournament.TournamentRenderer"/>
+    <classEntry path="tournament.TournamentVBar"/>
+    <classEntry path="ui.BalloonBorder"/>
+    <classEntry path="ui.CacheableImage"/>
+    <classEntry path="ui.ChatTextArea"/>
+    <classEntry path="ui.Countdown"/>
+    <classEntry path="ui.HorizontalLogList"/>
+    <classEntry path="ui.ImageRepository"/>
+    <classEntry path="ui.ListDataEvent"/>
+    <classEntry path="ui.LogList"/>
+    <classEntry path="util.ArrayCollectionMap"/>
+    <classEntry path="util.ReplacementRule"/>
+    <classEntry path="util.StringUtil"/>
+    <classEntry path="wolf.Channel"/>
+    <classEntry path="wolf.Role"/>
+    <classEntry path="wolf.VillageState"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>

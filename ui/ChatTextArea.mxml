@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TextArea xmlns:mx="http://www.adobe.com/2006/mxml" keyDown="handleKeyDown(event)">
+	<mx:Metadata>
+		[Event(name="enter", type="mx.events.FlexEvent")]
+	</mx:Metadata>
+		
+	<mx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import flash.events.KeyboardEvent;
+			
+			private function handleKeyDown(event:KeyboardEvent) : void {
+				if(event.keyCode == Keyboard.ENTER && !event.ctrlKey && !event.shiftKey){
+					dispatchEvent(new FlexEvent(FlexEvent.ENTER));
+				}
+			}
+			
+			public function clearText() : void {
+				text = "";
+			}
+		]]>
+	</mx:Script>
+</mx:TextArea>

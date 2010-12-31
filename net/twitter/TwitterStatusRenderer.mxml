@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ui="ui.*" xmlns:twitter="net.twitter.*">
+  <ui:CacheableImage source="{data.user.profileImageUrl}" width="48" height="48"/>
+  <mx:Text htmlText="{formatter.format(data)}" width="100%"/>  
+  <twitter:TwitterStatusFormatter id="formatter"/>
+</mx:HBox>
