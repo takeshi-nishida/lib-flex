@@ -32,6 +32,8 @@
     <classEntry path="wolf.Channel"/>
     <classEntry path="wolf.Role"/>
     <classEntry path="wolf.VillageState"/>
+    <classEntry path="ui4.LogList"/>
+    <classEntry path="ui4.ChatTextArea"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

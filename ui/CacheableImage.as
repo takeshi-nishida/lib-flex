@@ -37,7 +37,7 @@ package ui
 			if(imageRepository.lookup(url) != null){
 				bitmapData = BitmapData(imageRepository.lookup(url));
 				drawImage();
-        dispatchEvent(new Event(Event.COMPLETE));
+				dispatchEvent(new Event(Event.COMPLETE));
 				dispatchEvent(new Event("imageLoaded"));
 			}else{
 				var request:URLRequest = new URLRequest(url);
@@ -59,7 +59,7 @@ package ui
 			bitmapData = Bitmap(loader.content).bitmapData;
 			imageRepository.cacheImage(loader.contentLoaderInfo.url, bitmapData);
 			drawImage();
-      dispatchEvent(new Event("imageLoaded"));
+			dispatchEvent(new Event("imageLoaded"));
 		}
 		
 		private function eventCapture(e:Event):void{
@@ -67,45 +67,37 @@ package ui
 		}
 		
 		private function drawImage():void{
-		  if(bitmapData){
-  		  _scale = Math.min(width / bitmapData.width, height / bitmapData.height);
-  			var w:int = Math.min(width, bitmapData.width * _scale);
-  			var h:int = Math.min(height, bitmapData.height * _scale);
-        var matrix:Matrix = new Matrix();
-  			matrix.scale(_scale, _scale);
-  			graphics.clear();
-  			graphics.beginBitmapFill(bitmapData, matrix);
-  			graphics.drawRect(0, 0, w, h);
-  			graphics.endFill();
-		  }
+			if(bitmapData){
+				_scale = Math.min(width / bitmapData.width, height / bitmapData.height);
+				var w:int = Math.min(width, bitmapData.width * _scale);
+				var h:int = Math.min(height, bitmapData.height * _scale);
+				var matrix:Matrix = new Matrix();
+				matrix.scale(_scale, _scale);
+				graphics.clear();
+				graphics.beginBitmapFill(bitmapData, matrix);
+				graphics.drawRect(0, 0, w, h);
+				graphics.endFill();
+			}
 		}
-				
+		
 		public function set source(url:String):void{
 			load(url);
 		}
 		
 		public function resizeHandler(event:ResizeEvent) : void {
-		  drawImage();
-		}
-				
-		public function get scaleValue() : Number {
-		  return _scale;
+			drawImage();
 		}
 		
-//		public function localToImage(p:Point) : Point {
-//		  return new Point(p.x / _scale, p.y / _scale);
-//		}
+		public function get scaleValue() : Number {
+			return _scale;
+		}
 		
 		public function localToImage(x:int, y:int) : Point {
-		  return new Point(x / _scale, y / _scale);
+			return new Point(x / _scale, y / _scale);
 		}
 		
-//		public function imageToLocal(p:Point) : Point {
-//		  return new Point(p.x * _scale, p.y * _scale);
-//		}
-		
 		public function imageToLocal(x:int, y:int) : Point {
-      return new Point(x * _scale, y * _scale);		  
+			return new Point(x * _scale, y * _scale);		  
 		}
 	}
 }
