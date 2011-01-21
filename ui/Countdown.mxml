@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="400" verticalAlign="middle" creationComplete="init(event)">
 	<mx:Label id="timeLabel" text="{'残り ' + StringUtil.intervalToString(timeLeft)}" />
-	<mx:Canvas id="bar" height="90%" width="100%" backgroundColor="0xffffff" dropShadowEnabled="true" />
+	<mx:Canvas id="bar" height="90%" width="100%" backgroundColor="0xffffff" />
 	
 	<mx:Script>
 		<![CDATA[

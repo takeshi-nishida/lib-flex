@@ -9,7 +9,7 @@ package tournament
 			super();
 			
 			this.full = full;
-			this.left = left;
+			this.isLeft = left;
 			this.won = false
 			this.t = t;
 			this.toolTip = t.toString();
@@ -18,7 +18,7 @@ package tournament
 		
 		private var t:Tournament;
 		private var full:Boolean;
-		private var left:Boolean;
+		private var isLeft:Boolean;
 		private var won:Boolean;
 
 		protected override function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void {
@@ -32,12 +32,12 @@ package tournament
 			}
 			else{
 				graphics.moveTo(unscaledWidth, unscaledHeight / 2);
-				graphics.lineTo(unscaledWidth, left ? unscaledHeight : 0);		
+				graphics.lineTo(unscaledWidth, isLeft ? unscaledHeight : 0);		
 			}
 		}
 		
 		public function determined(e:TournamentEvent) : void {
-			won = left == e.left;
+			won = isLeft == e.left;
 			invalidateDisplayList();
 		}
 	}
