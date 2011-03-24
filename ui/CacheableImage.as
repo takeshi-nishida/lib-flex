@@ -39,7 +39,7 @@ package ui
 				drawImage();
 				dispatchEvent(new Event(Event.COMPLETE));
 				dispatchEvent(new Event("imageLoaded"));
-			}else{
+			}else if(url != null){
 				var request:URLRequest = new URLRequest(url);
 				loader.load(request, loaderContext);
 				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoadComplete);

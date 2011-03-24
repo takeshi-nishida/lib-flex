@@ -39,14 +39,14 @@ package ui4
 		}
 		
 		private function onCollectionChange(event:CollectionEvent) : void {
-			if(_autoScroll && event.kind == CollectionEventKind.ADD && event.location + 1 >= event.target.length){
-				_scrollTo = event.location;				
+			if(_autoScroll && event.kind == CollectionEventKind.ADD){
+				_scrollTo = event.location;
 			}
 		}	
 		
 		private function onUpdateComplete(event:FlexEvent) : void {
 			if(_scrollTo > 0){
-				ensureIndexIsVisible(_scrollTo + 1);
+				ensureIndexIsVisible(_scrollTo);
 				_scrollTo = -1;
 			}
 		}
