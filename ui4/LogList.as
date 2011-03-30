@@ -1,53 +1,82 @@
 package ui4
 {
 	import mx.collections.IList;
+	import mx.core.IFactory;
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 	import mx.events.FlexEvent;
 	
 	import spark.components.List;
+	import spark.events.IndexChangeEvent;
 	
 	public class LogList extends List
 	{
+		private var _autoScroll:Boolean;
+		private var _autoSelect:Boolean;
+		private var _added:Object;
+
 		public function LogList()
 		{
 			super();
 			
 			_autoScroll = false;
-			_scrollTo = -1;
+			_autoSelect = false;
+			_added = null;
 			addEventListener(FlexEvent.UPDATE_COMPLETE, onUpdateComplete);
 		}
 		
-		private var _autoScroll:Boolean;
-		private var _scrollTo:int;
-
+		
 		public function get autoScroll():Boolean
 		{
 			return _autoScroll;
 		}
-
+		
 		public function set autoScroll(value:Boolean):void
 		{
 			_autoScroll = value;
 		}
-
+		
+		public function get autoSelect() :Boolean
+		{
+			return _autoSelect;
+		}
+		
+		public function set autoSelect(value:Boolean):void
+		{
+			_autoSelect = value;
+		}
+		
 		override public function set dataProvider(value:IList):void
 		{
 			super.dataProvider = value;
 			
 			value.addEventListener(CollectionEvent.COLLECTION_CHANGE, onCollectionChange);
 		}
+				
+		override public function set selectedItem(value:*):void
+		{
+			super.selectedItem = value;
+			if(_autoScroll){
+				ensureIndexIsVisible(dataProvider.getItemIndex(value));
+			}
+		}
 		
 		private function onCollectionChange(event:CollectionEvent) : void {
-			if(_autoScroll && event.kind == CollectionEventKind.ADD){
-				_scrollTo = event.location;
+			switch(event.kind){
+				case CollectionEventKind.ADD:
+					_added = event.items[event.items.length - 1];
 			}
 		}	
 		
 		private function onUpdateComplete(event:FlexEvent) : void {
-			if(_scrollTo > 0){
-				ensureIndexIsVisible(_scrollTo);
-				_scrollTo = -1;
+			if(_added){
+				if(_autoSelect){
+					selectedItem = _added;
+				}
+				if(_autoScroll){
+					ensureIndexIsVisible(dataProvider.getItemIndex(_added));
+				}
+				_added = null;
 			}
 		}
 	}
