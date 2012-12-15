@@ -1,5 +1,7 @@
 package ui4
 {
+	import flash.events.MouseEvent;
+	
 	import mx.collections.IList;
 	import mx.core.IFactory;
 	import mx.events.CollectionEvent;
@@ -9,20 +11,25 @@ package ui4
 	import spark.components.List;
 	import spark.events.IndexChangeEvent;
 	
+  [Bindable]
 	public class LogList extends List
 	{
+    public var autoScrollInterval:Number = 2000;
 		private var _autoScroll:Boolean;
 		private var _autoSelect:Boolean;
 		private var _added:Object;
+    public var _lastMouseMoveTime:Number;
 
 		public function LogList()
 		{
 			super();
-			
-			_autoScroll = false;
+
+      _autoScroll = false;
 			_autoSelect = false;
 			_added = null;
+      _lastMouseMoveTime = new Date().time;
 			addEventListener(FlexEvent.UPDATE_COMPLETE, onUpdateComplete);
+      addEventListener(MouseEvent.MOUSE_MOVE, onMouseMove);
 		}
 		
 		
@@ -30,12 +37,16 @@ package ui4
 		{
 			return _autoScroll;
 		}
-		
+    
+    public function get willAutoScroll() : Boolean {
+        return _autoScroll && (new Date().time - _lastMouseMoveTime) > autoScrollInterval;
+    }
+    		
 		public function set autoScroll(value:Boolean):void
 		{
 			_autoScroll = value;
 		}
-		
+        		
 		public function get autoSelect() :Boolean
 		{
 			return _autoSelect;
@@ -73,11 +84,16 @@ package ui4
 				if(_autoSelect){
 					selectedItem = _added;
 				}
-				if(_autoScroll){
+				if(willAutoScroll){
 					ensureIndexIsVisible(dataProvider.getItemIndex(_added));
 				}
 				_added = null;
-			}
+			}      
 		}
+    
+    private function onMouseMove(event:MouseEvent) : void {
+      _lastMouseMoveTime = new Date().time;
+    }
+    
 	}
 }

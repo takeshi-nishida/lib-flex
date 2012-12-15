@@ -4,9 +4,19 @@ package util
 	{
 	  public static function replaceLink(s:String) : String {
        var pattern:RegExp = /https?:\/\/[-_.!~*'()\w;\/?:@&=+$,%#]+/gi;
-       var markup:String = "<ul><a href=\"$&\" target='blank'>$&</a></ul>"
-       return s.replace(pattern, markup)
+       var markup:String = "<u><a href=\"$&\" target='blank'>$&</a></u>"
+       return s.replace(pattern, markup);
 	  }
+    
+    public static function replaceLinkShort(s:String) : String {
+        var pattern:RegExp = /https?:\/\/([-_.!~*'()\w;\/?:@&=+$,%#]+)/gi;
+        return s.replace(pattern, shortenURL);
+    }
+    
+    public static function shortenURL(url:String, urlBody:String, index:int, s:String) : String {
+        var urlView:String = urlBody.length > 18 ? urlBody.substr(0, 18) + ".." : urlBody;
+        return "<u><a href='" + url + "' target='blank'>" + urlView + "</a></u>";
+    }
 
 	  public static function link(href:String, body:String) : String {
 	    return '<a href="' + href + '">' + body + '</a>'
