@@ -11,27 +11,39 @@ package util
 		private var map:Dictionary;
 		private var _maxId:int;
 		
-		public function ArrayCollectionMap(source:Array=null)
+		public function ArrayCollectionMap(shouldSortById:Boolean = true, source:Array=null)
 		{
 			super(source);
-			sort = new Sort();
-			var sortById:SortField = new SortField();
-			sortById.name = "id";
-			sortById.numeric = true;
-			sort.fields = [sortById];
+      if(shouldSortById){
+  			sort = new Sort();
+  			var sortById:SortField = new SortField();
+  			sortById.name = "id";
+  			sortById.numeric = true;
+  			sort.fields = [sortById];
+      }
 			refresh();
 			map = new Dictionary();
 
 			_maxId = 0;
 		}
 		
-		public override function addItem(item:Object) : void {
-			if(!map[item.id]){
-				_maxId = Math.max(_maxId, item.id);
-				map[item.id] = item;
-				super.addItem(item);
-			}
-		}
+//		public override function addItem(item:Object) : void {
+//      trace("addItem");
+//			if(!map[item.id]){
+//				_maxId = Math.max(_maxId, item.id);
+//				map[item.id] = item;
+//				super.addItem(item);
+//			}
+//		}
+    
+    public override function addItemAt(item:Object, index:int) : void {
+//      trace("addItemAt:" + index);
+      if(!map[item.id]){
+        _maxId = Math.max(_maxId, item.id);
+        map[item.id] = item;
+      }
+      super.addItemAt(item, index);
+    }
 				
 		public function getItem(id:int) : Object {
 			return map[id];
@@ -39,7 +51,6 @@ package util
 		
 		public function removeItem(id:int) : void {		  
 			if(map[id]){
-			  trace(super.contains(map[id]));
 				var index:int = getItemIndex(map[id]);
 				map[id] = null;
 				if(index >= 0){
@@ -47,6 +58,15 @@ package util
 				}
 			}
 		}
+    
+    public override function removeItemAt(index:int) : Object{
+//      trace("removeItemAt:" + index);
+      var id:int = getItemAt(index).id;
+      if(map[id]){
+        map[id] = null;
+      }
+      return super.removeItemAt(index);
+    }
 		
 		public override function removeAll() : void {
 		  map = new Dictionary();
